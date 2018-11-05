@@ -1,0 +1,21 @@
+#/usr/bin/env bash
+
+set -a
+#set -x
+set -e
+
+function clock {
+    clear
+    (( sec=60-10#$(date +%S) ))
+    date +%H:%M | figlet -c | grc --red=on
+    printf "%${sec}s<%02d>" " " $sec
+    sleep 1
+}
+
+
+clock
+
+while true
+do 
+    clock
+done
