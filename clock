@@ -4,10 +4,39 @@ set -a
 #set -x
 set -e
 
+export DEFAULT="\e[0m"
+export FG_BLUE="\e[38;5;6m"
+export FG_GREEN="\e[38;5;2m"
+export FG_RED="\e[38;5;1m"
+
+function minutes_to_go {
+    (( min_to_hour=60-10#$(date +%M) ))
+    (( min_to_half=30-10#$(date +%M)%30 ))
+    (( min_to_quarter=15-10#$(date +%M)%15 ))
+    echo hour:$min_to_hour half:$min_to_half quarter:$min_to_quarter
+}
+
 function clock {
     clear
     (( sec=60-10#$(date +%S) ))
-    date +%H:%M | figlet -c | grc --red=on
+    (( min=10#$(date +%M) ))
+
+    if [[ $min -lt 15 ]]
+    then
+        color=$FG_BLUE
+    elif [[ $min -lt 30 ]]
+    then
+        color=$FG_GREEN
+    else
+        color=$FG_RED
+    fi
+    
+    printf "$color"
+    date +%I:%M | figlet -c
+    printf "$DEFAULT"
+
+    minutes_to_go
+
     printf "%${sec}s<%02d>" " " $sec
     sleep 1
 }
