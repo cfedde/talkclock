@@ -1,0 +1,21 @@
+name: Hello World
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Say hello
+      run: echo "Hello, GitHub Actions!"
+      
+    - name: Print date
+      run: date
