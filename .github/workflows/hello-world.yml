@@ -14,6 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
+    - name: show environment
+      run: env
+      
     - name: Say hello
       run: echo "Hello, GitHub Actions!"
       
